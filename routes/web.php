@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\SingleActionController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\RegistrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +27,11 @@ use App\Http\Controllers\PhotoController;
 
 // Route::get('contact',function(){
 //     return view('contact');
-// });
+// // });
 
-Route::get('/',[DemoController::class, 'sweethome']);
-Route::get('/contact',SingleActionController::class);
-Route::resource('photo', PhotoController::class);
+// Route::get('/',[DemoController::class, 'sweethome']);
+// Route::get('/contact',SingleActionController::class);
+// Route::resource('photo', PhotoController::class);
+
+Route::get('/form', [RegistrationController::class, 'form']);
+Route::post('/form', [RegistrationController::class, 'register']);
