@@ -11,7 +11,7 @@
   </head>
   <body>
     <div class="offset-2 col-md-6">
-      <form method="post" action="{{url('/')}}/form">
+      <form method="post" action="{{url('/')}}/insert">
         @csrf
         <div class="mb-3">
           <label for="name" class="form-label">Name</label>
@@ -21,8 +21,20 @@
               {{$message}}
             @enderror
           </span>
-          {{-- <small id="helpId" class="form-text text-muted">Help text</small> --}}
         </div>
+        <div class="mb-3">
+            <label for="gender" class="form-label">Gender</label>
+            <select name="gender" id="" class="form-control">
+                <option selected disabled>Choose Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            {{-- <span class="text-danger">
+              @error('name')
+                {{$message}}
+              @enderror
+            </span> --}}
+          </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="text" class="form-control" name="email" id="email" value="{{old('email')}}" placeholder="Write Your Email">
@@ -34,6 +46,15 @@
             {{-- <small id="helpId" class="form-text text-muted">Help text</small> --}}
         </div>
         <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <input type="text" class="form-control" name="address" value="{{old('address')}}">
+            {{-- <span class="text-danger">
+              @error('name')
+                {{$message}}
+              @enderror
+            </span> --}}
+          </div>
+        <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder="Write Your Password">
             <span class="text-danger">
@@ -44,17 +65,22 @@
             {{-- <small id="helpId" class="form-text text-muted">Help text</small> --}}
         </div>
         <div class="mb-3">
-            <label for="cpassword" class="form-label">Confirm Password</label>
-            <input type="password" class="form-control" name="cpassword" id="cpassword" aria-describedby="helpId" placeholder="Confirm Password">
-            <span class="text-danger">
-                @error('cpassword')
-                    {{$message}}
-                @enderror
-              </span>
-            {{-- <small id="helpId" class="form-text text-muted">Help text</small> --}}
+            <label for="status" class="form-label">Status</label>
+            <select name="status" id="" class="form-control">
+                <option selected disabled>Choose Status</option>
+                <option value="1">Admin</option>
+                <option value="0">User</option>
+            </select>
+            {{-- <span class="text-danger">
+              @error('name')
+                {{$message}}
+              @enderror
+            </span> --}}
+          </div>
+        <div class="">
+           <input type="submit" style="width: 100%" class="btn btn-info  btn-block" name="submit" value="Submit" id="submit">
         </div>
-        <input type="submit" name="submit" value="Submit" id="submit">
-      </form>
+    </form>
     </div>
   </body>
 </html>

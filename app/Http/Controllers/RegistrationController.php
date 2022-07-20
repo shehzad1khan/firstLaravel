@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Customer;
 
 class RegistrationController extends Controller
 {
@@ -16,12 +17,23 @@ class RegistrationController extends Controller
         $request->validate(
             [
                 'name' => 'required',
+                'gender' => 'required',
                 'email' => 'required|email',
+                'address' => 'required',
                 'password' => 'required|',
-                'cpassword' => 'required|same:password',
+                'status' => 'required'
             ]
         );
         echo '<pre>';
         print_r($request->all());
+      //  Insert Query in Laravel
+        $customer = new Customer();
+        $customer->name = $request['name'];
+        $customer->gender = $request['gender'];
+        $customer->email = $request['email'];
+        $customer->address = $request['address'];
+        $customer->password = md5($request['password']);
+        $customer->status = $request['status'];
+        $customer->save();
     }
 }

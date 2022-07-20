@@ -5,6 +5,7 @@ use App\Http\Controllers\DemoController;
 use App\Http\Controllers\SingleActionController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\RegistrationController;
+use App\Models\Customer;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +35,10 @@ use App\Http\Controllers\RegistrationController;
 // Route::resource('photo', PhotoController::class);
 
 Route::get('/form', [RegistrationController::class, 'form']);
-Route::post('/form', [RegistrationController::class, 'register']);
+Route::post('/insert', [RegistrationController::class, 'register']);
+
+Route::get('/table', function (){
+    $costomer = Customer::all();
+    echo '<pre>';
+    print_r($costomer->toArray());
+});
