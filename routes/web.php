@@ -18,13 +18,13 @@ use App\Models\Customer;
 |
 */
 
-// Route::get('/', function (){
-//     return view('home');
-// });
+Route::get('/home', function (){
+    return view('home');
+});
 
-// Route::get('/about', function (){
-//     return view('about');
-// });
+Route::get('/about', function (){
+    return view('about');
+});
 
 // Route::get('contact',function(){
 //     return view('contact');
@@ -36,9 +36,5 @@ use App\Models\Customer;
 
 Route::get('/form', [RegistrationController::class, 'form']);
 Route::post('/insert', [RegistrationController::class, 'register']);
-
-Route::get('/table', function (){
-    $costomer = Customer::all();
-    echo '<pre>';
-    print_r($costomer->toArray());
-});
+Route::get('/delete/{id}', [RegistrationController::class, 'delete'])->name("cus.delete");
+Route::get('/list', [RegistrationController::class, 'list']);

@@ -10,6 +10,7 @@
 
   </head>
   <body>
+    @include("navbar")
     <div class="offset-2 col-md-6">
       <form method="post" action="{{url('/')}}/insert">
         @csrf

@@ -35,5 +35,21 @@ class RegistrationController extends Controller
         $customer->password = md5($request['password']);
         $customer->status = $request['status'];
         $customer->save();
+
+        return redirect('/list');
+    }
+    public function list()
+    {
+        $row = Customer::all();
+        $data = compact('row');
+        return view('list')->with($data);
+    }
+    public function delete($id)
+    {
+        $data = Customer::find($id);
+        if(!is_null($data)){
+            $data->delete();
+        }
+        return redirect("list");
     }
 }

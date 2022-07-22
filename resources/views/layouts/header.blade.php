@@ -16,32 +16,17 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs justify-content-center" id="navId" role="tablist">
                 <li class="nav-item">
-                    <a href="../home.blade.php" class="nav-link" data-bs-toggle="tab">Home</a>
+                    <a href="{{url('/home')}}" class="nav-link" data-bs-toggle="tab">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="../about.blade.php" class="nav-link" data-bs-toggle="tab">About</a>
+                    <a href="{{url('/')}}/about" class="nav-link" data-bs-toggle="tab">About</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a href="../contact.blade.php" class="nav-link" data-bs-toggle="tab">Contact</a>
+                    <a href="{{url('/form')}}/form" class="nav-link" data-bs-toggle="tab">Contact</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a href="#" class="nav-link disabled" data-bs-toggle="tab">Disabled</a>
                 </li>
             </ul>
-
-            <!-- Tab panes -->
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="tab1Id" role="tabpanel"></div>
-                <div class="tab-pane fade" id="tab2Id" role="tabpanel"></div>
-                <div class="tab-pane fade" id="tab3Id" role="tabpanel"></div>
-                <div class="tab-pane fade" id="tab4Id" role="tabpanel"></div>
-                <div class="tab-pane fade" id="tab5Id" role="tabpanel"></div>
-            </div>
-
-            <!-- (Optional) - Place this js code after initializing bootstrap.min.js or bootstrap.bundle.min.js -->
-            <script>
-                var triggerEl = document.querySelector('#navId a')
-                bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
-            </script>
     </div>
 
