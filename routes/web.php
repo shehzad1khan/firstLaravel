@@ -6,6 +6,8 @@ use App\Http\Controllers\SingleActionController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\RegistrationController;
 use App\Models\Customer;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +20,7 @@ use App\Models\Customer;
 |
 */
 
-Route::get('/home', function (){
+Route::get('/', function (){
     return view('home');
 });
 
@@ -34,7 +36,28 @@ Route::get('/about', function (){
 // Route::get('/contact',SingleActionController::class);
 // Route::resource('photo', PhotoController::class);
 
-Route::get('/form', [RegistrationController::class, 'form']);
-Route::post('/insert', [RegistrationController::class, 'register']);
-Route::get('/delete/{id}', [RegistrationController::class, 'delete'])->name("cus.delete");
-Route::get('/list', [RegistrationController::class, 'list']);
+Route::group(['prefix' => '/admin'], function(){
+    Route::get('form', [RegistrationController::class, 'form']);
+    Route::post('insert', [RegistrationController::class, 'register']);
+    Route::get('delete/{id}', [RegistrationController::class, 'delete'])->name("cus.delete");
+    Route::get('force_delete/{id}', [RegistrationController::class, 'force_delete'])->name("force.delete");
+    Route::get('restore/{id}', [RegistrationController::class, 'restore'])->name("cus.restore");
+    Route::get('edit/{id}', [RegistrationController::class, 'edit'])->name("cus-edit");
+    Route::post('update/{id}', [RegistrationController::class, 'update']);
+    Route::get('list', [RegistrationController::class, 'list']);
+    Route::get('trash', [RegistrationController::class, 'trash']);
+    Route::get('home', function() {
+        return view("home");
+    });
+    Route::get('about', function() {
+        return view("about");
+    });
+
+    Route::get('/{lang?}', function($lang = null) {
+        App::setLocale($lang);
+        return view("home");
+    });
+
+});
+
+

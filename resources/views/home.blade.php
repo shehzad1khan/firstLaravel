@@ -7,6 +7,11 @@
     Home Page
 </h2>
 <h1 class="text-center">
-    Welcome To first Laravel Website Testing
+    @lang('lang.welcome')
 </h1>
+<div class="justify-content-center">
+    <a href="{{url('/admin/urdu')}}">Urdu</a>
+    <a href="{{url('/admin')}}">English</a>
+    <a href="{{url('/admin/pashto')}}">Pashto</a>
+</div>
 @endsection
