@@ -6,6 +6,8 @@ use App\Http\Controllers\SingleActionController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\RegistrationController;
 use App\Models\Customer;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,29 +20,54 @@ use App\Models\Customer;
 |
 */
 
-// Route::get('/', function (){
-//     return view('home');
-// });
+Route::get('/', function (){
+    return view('home');
+});
 
-// Route::get('/about', function (){
-//     return view('about');
-// });
+Route::get('/about', function (){
+    return view('about');
+});
 
 Route::get('/',[DemoController::class, 'sweethome']);
 Route::get('/contact',SingleActionController::class);
 Route::resource('photo', PhotoController::class);
 
+<<<<<<< HEAD
 Route::get('about', function () {
     return view('about');
 });
 Route::get('/form', [RegistrationController::class, 'form']);
 Route::post('/insert', [RegistrationController::class, 'register']);
+=======
+Route::group(['prefix' => '/admin'], function(){
+    Route::get('form', [RegistrationController::class, 'form']);
+    Route::post('insert', [RegistrationController::class, 'register']);
+    Route::get('delete/{id}', [RegistrationController::class, 'delete'])->name("cus.delete");
+    Route::get('force_delete/{id}', [RegistrationController::class, 'force_delete'])->name("force.delete");
+    Route::get('restore/{id}', [RegistrationController::class, 'restore'])->name("cus.restore");
+    Route::get('edit/{id}', [RegistrationController::class, 'edit'])->name("cus-edit");
+    Route::post('update/{id}', [RegistrationController::class, 'update']);
+    Route::get('list', [RegistrationController::class, 'list']);
+    Route::get('trash', [RegistrationController::class, 'trash']);
+    Route::get('home', function() {
+        return view("home");
+    });
+    Route::get('about', function() {
+        return view("about");
+    });
 
-Route::get('/table', function (){
-    $costomer = Customer::all();
-    echo '<pre>';
-    print_r($costomer->toArray());
+    Route::get('/{lang?}', function($lang = null) {
+        App::setLocale($lang);
+        return view("home");
+    });
+>>>>>>> 86dda8470c630e66a6021914d182de55c5107f08
+
 });
+<<<<<<< HEAD
 Route::get('contact', function(){
     return view('contact');
 });
+=======
+
+
+>>>>>>> 86dda8470c630e66a6021914d182de55c5107f08
