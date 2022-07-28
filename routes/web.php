@@ -26,14 +26,13 @@ use App\Models\Customer;
 //     return view('about');
 // });
 
-// Route::get('contact',function(){
-//     return view('contact');
-// // });
+Route::get('/',[DemoController::class, 'sweethome']);
+Route::get('/contact',SingleActionController::class);
+Route::resource('photo', PhotoController::class);
 
-// Route::get('/',[DemoController::class, 'sweethome']);
-// Route::get('/contact',SingleActionController::class);
-// Route::resource('photo', PhotoController::class);
-
+Route::get('about', function () {
+    return view('about');
+});
 Route::get('/form', [RegistrationController::class, 'form']);
 Route::post('/insert', [RegistrationController::class, 'register']);
 
@@ -41,4 +40,7 @@ Route::get('/table', function (){
     $costomer = Customer::all();
     echo '<pre>';
     print_r($costomer->toArray());
+});
+Route::get('contact', function(){
+    return view('contact');
 });
