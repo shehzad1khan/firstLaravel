@@ -28,14 +28,17 @@ use Illuminate\Support\Facades\App;
 //     return view('about');
 // });
 
-// Route::get('contact',function(){
-//     return view('contact');
-// // });
+Route::get('/',[DemoController::class, 'sweethome']);
+Route::get('/contact',SingleActionController::class);
+Route::resource('photo', PhotoController::class);
 
-// Route::get('/',[DemoController::class, 'sweethome']);
-// Route::get('/contact',SingleActionController::class);
-// Route::resource('photo', PhotoController::class);
-
+<<<<<<< HEAD
+Route::get('about', function () {
+    return view('about');
+});
+Route::get('/form', [RegistrationController::class, 'form']);
+Route::post('/insert', [RegistrationController::class, 'register']);
+=======
 Route::group(['prefix' => '/admin'], function(){
     Route::get('form', [RegistrationController::class, 'form']);
     Route::post('insert', [RegistrationController::class, 'register']);
@@ -57,7 +60,14 @@ Route::group(['prefix' => '/admin'], function(){
         App::setLocale($lang);
         return view("home");
     });
+>>>>>>> 86dda8470c630e66a6021914d182de55c5107f08
 
 });
+<<<<<<< HEAD
+Route::get('contact', function(){
+    return view('contact');
+});
+=======
 
 
+>>>>>>> 86dda8470c630e66a6021914d182de55c5107f08
