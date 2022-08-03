@@ -28,8 +28,6 @@ class RegistrationController extends Controller
                 'status' => 'required'
             ]
         );
-        echo '<pre>';
-        print_r($request->all());
       //  Insert Query in Laravel
         $customer = new Customer();
         $customer->name = $request['name'];
@@ -46,7 +44,7 @@ class RegistrationController extends Controller
     {
         $search = $request['search'] ?? "";
         if($search != ""){
-            $customer = Customer::where('name', 'LIKE', "%$search%")->orwhere('email', 'LIKE', "%$search%")->orwhere('gender', 'LIKE', "%$search%")->get();
+            $customer = Customer::where('name', 'LIKE', "%$search%")->orwhere('email', 'LIKE', "%$search%")->orwhere('gender', 'LIKE', "%$search%")->orwhere('address', 'LIKE', "%$search%")->paginate(15);
         }else{
             $customer = Customer::paginate(15);
         }
@@ -59,7 +57,7 @@ class RegistrationController extends Controller
         if(!is_null($data)){
             $data->delete();
         }
-        return redirect("list");
+        return redirect("admin/list");
     }
     public function force_delete($id)
     {
@@ -67,7 +65,7 @@ class RegistrationController extends Controller
         if(!is_null($data)){
             $data->forceDelete();
         }
-        return redirect("trash");
+        return redirect("admin/trash");
     }
     public function restore($id)
     {
@@ -75,7 +73,7 @@ class RegistrationController extends Controller
         if(!is_null($data)){
             $data->restore();
         }
-        return redirect("trash");
+        return redirect("admin/trash");
     }
 
     public function edit($id)

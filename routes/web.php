@@ -20,13 +20,13 @@ use Illuminate\Support\Facades\App;
 |
 */
 
-Route::get('/', function (){
-    return view('home');
-});
+// Route::get('/', function (){
+//     return view('home');
+// });
 
-Route::get('/about', function (){
-    return view('about');
-});
+// Route::get('/about', function (){
+//     return view('about');
+// });
 
 // Route::get('contact',function(){
 //     return view('contact');
@@ -46,7 +46,7 @@ Route::group(['prefix' => '/admin'], function(){
     Route::post('update/{id}', [RegistrationController::class, 'update']);
     Route::get('list', [RegistrationController::class, 'list']);
     Route::get('trash', [RegistrationController::class, 'trash']);
-    Route::get('home', function() {
+    Route::get('/', function() {
         return view("home");
     });
     Route::get('about', function() {

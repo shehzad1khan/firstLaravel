@@ -15,7 +15,7 @@
             <div class="offset-4 mt-1 mb-3 col-3">
               <input type="search" name="search" id="search" class="form-control border-dark" placeholder="Search by Name or Email" value="{{$search}}">
               <button class="btn btn-success">Search</button>
-              <a href="{{url('list')}}">
+              <a href="{{url('admin/list')}}">
                 <button class="btn btn-info" type="button">Reset</button></a>
             </div>
         </form>
@@ -67,5 +67,6 @@
         {{ $customer->links() }}
         </div>
     </div>
+
   </body>
 </html>
