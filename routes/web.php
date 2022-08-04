@@ -28,13 +28,10 @@ use Illuminate\Support\Facades\App;
 //     return view('about');
 // });
 
-// Route::get('contact',function(){
-//     return view('contact');
-// // });
-
 // Route::get('/',[DemoController::class, 'sweethome']);
 // Route::get('/contact',SingleActionController::class);
 // Route::resource('photo', PhotoController::class);
+
 
 Route::group(['prefix' => '/admin'], function(){
     Route::get('form', [RegistrationController::class, 'form']);
@@ -44,20 +41,20 @@ Route::group(['prefix' => '/admin'], function(){
     Route::get('restore/{id}', [RegistrationController::class, 'restore'])->name("cus.restore");
     Route::get('edit/{id}', [RegistrationController::class, 'edit'])->name("cus-edit");
     Route::post('update/{id}', [RegistrationController::class, 'update']);
-    Route::get('list', [RegistrationController::class, 'list']);
+    Route::get('list', [RegistrationController::class, 'list'])->middleware('role:User');
     Route::get('trash', [RegistrationController::class, 'trash']);
     Route::get('/', function() {
         return view("home");
     });
-    Route::get('about', function() {
-        return view("about");
-    });
-
     Route::get('/{lang?}', function($lang = null) {
         App::setLocale($lang);
         return view("home");
     });
+    Route::get('admin.about', function () {
+        return view('about');
+    });
 
 });
-
-
+Route::get('contact', function(){
+    return view('contact');
+});

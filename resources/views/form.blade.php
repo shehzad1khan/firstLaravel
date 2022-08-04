@@ -13,7 +13,7 @@
     @include("navbar")
     <div class="card offset-3 col-md-6">
         <span class="text-center text-success">{{$title}}</span>
-      <form method="post" action="{{$url}}">
+      <form method="post" action="{{$url}}" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
           <label for="name" class="form-label">Name</label>
@@ -28,8 +28,8 @@
             <label for="gender" class="form-label">Gender</label>
             <select name="gender" id="" class="form-control">
                 <option selected disabled>Choose Gender</option>
-                <option selected value="male">Male</option>
-                <option selected value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
             </select>
           </div>
         <div class="mb-3">
@@ -60,10 +60,14 @@
             <label for="status" class="form-label">Status</label>
             <select name="status" id="" class="form-control">
                 <option selected disabled>Choose Status</option>
-                <option selected value="1">Admin</option>
-                <option selected value="0">User</option>
+                <option value="1">Admin</option>
+                <option value="0">User</option>
             </select>
           </div>
+          <div class="mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input type="file" class="form-control" name="image" value="">
+        </div>
         <div class="">
            <input type="submit" style="width: 100%" class="btn btn-info  btn-block" name="submit" value="Submit" id="submit">
         </div>
