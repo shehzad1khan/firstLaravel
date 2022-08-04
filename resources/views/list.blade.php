@@ -10,7 +10,7 @@
   </head>
   <body>
     @include("navbar")
-    <div class="offset-2 col-md-8">
+    <div class="offset-1 col-md-10">
         <form action="" method="get">
             <div class="offset-4 mt-1 mb-3 col-3">
               <input type="search" name="search" id="search" class="form-control border-dark" placeholder="Search by Name or Email" value="{{$search}}">

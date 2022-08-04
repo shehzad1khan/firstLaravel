@@ -10,7 +10,7 @@ class RegistrationController extends Controller
 {
     public function form()
     {
-        $url = url('/insert');
+        $url = url('/admin/insert');
         $title = "Register Customer";
         $data = compact('url', 'title');
         return view('form')->with($data);
@@ -20,6 +20,7 @@ class RegistrationController extends Controller
     {
         $request->validate(
             [
+                'image' => 'required|image|mimes:png,jpg,jpeg|max:2048',
                 'name' => 'required',
                 'gender' => 'required',
                 'email' => 'required|email',
@@ -28,6 +29,8 @@ class RegistrationController extends Controller
                 'status' => 'required'
             ]
         );
+
+
       //  Insert Query in Laravel
         $customer = new Customer();
         $customer->name = $request['name'];
@@ -36,9 +39,22 @@ class RegistrationController extends Controller
         $customer->address = $request['address'];
         $customer->password = md5($request['password']);
         $customer->status = $request['status'];
+
+        $image = $request->file('image');
+        $new_name = rand() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('images'), $new_name);
+        $customer->image = $new_name;
+
+        // if($request->hadFile('image'))
+        // {
+        //     $image = $request['image'];
+        //     $name = time().'.'.$image->getClientOriginalExtension();
+        //     $image->save('testing/',$name);
+        //     $customer->image = $name;
+        // }
         $customer->save();
 
-        return redirect('/list');
+        return redirect('/admin/list');
     }
     public function list(Request $request)
     {
@@ -57,7 +73,7 @@ class RegistrationController extends Controller
         if(!is_null($data)){
             $data->delete();
         }
-        return redirect("admin/list");
+        return redirect("list");
     }
     public function force_delete($id)
     {
@@ -65,7 +81,7 @@ class RegistrationController extends Controller
         if(!is_null($data)){
             $data->forceDelete();
         }
-        return redirect("admin/trash");
+        return redirect("trash");
     }
     public function restore($id)
     {
@@ -73,7 +89,7 @@ class RegistrationController extends Controller
         if(!is_null($data)){
             $data->restore();
         }
-        return redirect("admin/trash");
+        return redirect("trash");
     }
 
     public function edit($id)
