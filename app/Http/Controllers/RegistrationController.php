@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Pagination\Paginator;
 
 class RegistrationController extends Controller
 {
     public function form()
     {
-        $url = url('admin/insert');
+        $url = url('/admin/insert');
         $title = "Register Customer";
         $data = compact('url', 'title');
         return view('form')->with($data);
@@ -20,6 +23,7 @@ class RegistrationController extends Controller
     {
         $request->validate( 
             [
+                'image' => 'required|image|mimes:png,jpg,jpeg|max:2048',
                 'name' => 'required',
                 'gender' => 'required',
                 'email' => 'required|email',
@@ -28,6 +32,8 @@ class RegistrationController extends Controller
                 'status' => 'required'
             ]
         );
+        echo '<pre>';
+        print_r($request->all());
       //  Insert Query in Laravel
         $customer = new Customer();
         $customer->name = $request['name'];
@@ -36,6 +42,19 @@ class RegistrationController extends Controller
         $customer->address = $request['address'];
         $customer->password = md5($request['password']);
         $customer->status = $request['status'];
+
+        $image = $request->file('image');
+        $new_name = rand().'.'.$image->getClientOriginalExtension();
+        $image->move(public_path('images'), $image);
+        $customer->image = $new_name;
+
+        // if($request->hadFile('image'))
+        // {
+        //     $image = $request['image'];
+        //     $name = time().'.'.$image->getClientOriginalExtension();
+        //     $image->save('testing/',$name);
+        //     $customer->image = $name;
+        // }
         $customer->save();
 
         return redirect('admin/list');
@@ -44,12 +63,12 @@ class RegistrationController extends Controller
     {
         $search = $request['search'] ?? "";
         if($search != ""){
-            $customer = Customer::where('name', 'LIKE', "%$search%")->orwhere('email', 'LIKE', "%$search%")->orwhere('gender', 'LIKE', "%$search%")->orwhere('address', 'LIKE', "%$search%")->paginate(15);
+            $customer = Customer::where('name', 'LIKE', "%$search%")->orwhere('email', 'LIKE', "%$search%")->orwhere('gender', 'LIKE', "%$search%")->get();
         }else{
             $customer = Customer::paginate(15);
         }
         $data = compact('customer', 'search');
-        return view('admin/list')->with($data);
+        return view('list')->with($data);
     }
     public function delete($id)
     {
@@ -78,16 +97,17 @@ class RegistrationController extends Controller
 
     public function edit($id)
     {
-        $data = Customer::find($id);
+        $data = Customer::get($id);
         if(is_null($data))
         {
             // data not found
             return redirect("list");
         }else{
             // if data Found
-            $url = url("admin/update") ."/". $id;
+            $url = url("/update") ."/". $id;
             $title = "Update Customer";
-            $user_data = compact('data', 'url', 'title');
+            $hide_class = 'display:none';
+            $user_data = compact('data', 'url', 'title','hide_class');
             return view('form')->with($user_data);
         }
     }
@@ -99,6 +119,12 @@ class RegistrationController extends Controller
         $user_data->email = $request['email'];
         $user_data->address = $request['address'];
         $user_data->status = $request['status'];
+
+        $image = $request->file('image');
+        $new_name = rand().'.'.$image->getClientOriginalExtension();
+        $image->move(public_path('images'), $image);
+        $user_data->image = $new_name;
+
         $user_data->save();
         return redirect("admin/list");
     }
@@ -107,19 +133,5 @@ class RegistrationController extends Controller
         $row = Customer::onlyTrashed()->get();
         $data = compact('row');
         return view('trash')->with($data);
-    }
-
-    public function login(Request $request)
-    {
-        $data = Customer::get();
-        $email = $request['email'];
-        $password = $request['password'];
-
-        if($data == $email && $data->password == $password)
-        {
-            return redirect('admin/list');
-        }else{
-            return redirect('login-form');
-        }
     }
 }

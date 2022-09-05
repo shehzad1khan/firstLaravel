@@ -21,10 +21,10 @@
           <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link text-white active" aria-current="page" href="{{url('/admin/home')}}">Home</a>
+                <a class="nav-link text-white active" aria-current="page" href="{{url('/admin')}}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="{{url('admin/about')}}">About</a>
+                <a class="nav-link text-white" href="{{url('/admin/about')}}">About</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link text-white" href="{{url('/admin/list')}}">List</a>
@@ -33,7 +33,7 @@
                 <a class="nav-link text-white" href="{{url('/admin/form')}}">Form</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="{{url('/admin/trash')}}">Trash Folder</a>
+                <a class="nav-link text-white" href="{{url('admin/trash')}}">Trash Folder</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link text-white dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

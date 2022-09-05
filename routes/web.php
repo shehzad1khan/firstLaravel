@@ -6,6 +6,7 @@ use App\Http\Controllers\SingleActionController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\RegistrationController;
 use App\Models\Customer;
+use Illuminate\Routing\Route as RoutingRoute;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use Illuminate\Support\Facades\App;
 
@@ -27,14 +28,18 @@ use Illuminate\Support\Facades\App;
 // Route::get('/about', function (){
 //     return view('about');
 // });
+<<<<<<< HEAD
 
 // Route::get('contact',function(){
 //     return view('contact');
 // // });
+=======
+>>>>>>> 12699496819af9ed2871cc348dd38b2564579f6a
 
 // Route::get('/',[DemoController::class, 'sweethome']);
 // Route::get('/contact',SingleActionController::class);
 // Route::resource('photo', PhotoController::class);
+
 
 Route::group(['prefix' => '/admin'], function(){
     Route::get('form', [RegistrationController::class, 'form']);
@@ -44,24 +49,32 @@ Route::group(['prefix' => '/admin'], function(){
     Route::get('restore/{id}', [RegistrationController::class, 'restore'])->name("cus.restore");
     Route::get('edit/{id}', [RegistrationController::class, 'edit'])->name("cus-edit");
     Route::post('update/{id}', [RegistrationController::class, 'update']);
-    Route::get('list', [RegistrationController::class, 'list']);
-    Route::get('trash', [RegistrationController::class, 'trash']);
-    Route::get('home', function() {
-        return view("home");
-    });
-    Route::get('about', function() {
+    Route::get('list', [RegistrationController::class, 'list'])->middleware('role:Admin');
+    Route::get('/trash', [RegistrationController::class, 'trash']);
+    // Route::get('/', function() {
+    //     return view("home");
+    // });
+    Route::get('about', function () {
         return view("about");
     });
-
     Route::get('/{lang?}', function($lang = null) {
         App::setLocale($lang);
         return view("home");
     });
+ }); //Group Route Ends Here
 
+<<<<<<< HEAD
 });
 
 Route::view('login-form', 'login-form');
 Route::post('login', [RegistrationController::class, 'login']);
 
 
+=======
+    Route::get('contact', function(){
+        return view('contact');
+    });
+>>>>>>> 12699496819af9ed2871cc348dd38b2564579f6a
 
+    Route::view('login', 'login-form');
+    Route::post('signin',[RegistrationController::class, 'signin']);

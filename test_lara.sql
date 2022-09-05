@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 27, 2022 at 03:29 PM
+-- Generation Time: Jul 29, 2022 at 11:48 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -45,8 +45,8 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id`, `name`, `gender`, `email`, `address`, `password`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(9, 'Shehzad', 'male', 'shehzadshinwari100@gmail.com', 'Landikotal District Khyber', '202cb962ac59075b964b07152d234b70', 1, '2022-07-22 08:39:30', '2022-07-26 00:13:05', NULL),
-(10, 'Shaifa', 'female', 'shaifa@gmail.com', 'Kando Khel', '202cb962ac59075b964b07152d234b70', 1, '2022-07-22 08:40:02', '2022-07-25 01:33:15', NULL),
+(9, 'Shehzad', 'male', 'shehzadshinwari100@gmail.com', 'Landikotal District Khyber', '202cb962ac59075b964b07152d234b70', 1, '2022-07-22 08:39:30', '2022-07-28 02:08:53', NULL),
+(10, 'Shaifa', 'female', 'shaifa@gmail.com', 'Kando Khel', '202cb962ac59075b964b07152d234b70', 1, '2022-07-22 08:40:02', '2022-07-28 02:08:55', NULL),
 (15, 'Bachanagy', 'female', 'shaifa@gmail.com', 'Kando Khel', '7815696ecbf1c96e6894b779456d330e', 1, '2022-07-25 02:55:19', '2022-07-25 02:55:19', NULL),
 (16, 'Shams', 'male', 'shams@gmail.com', 'Gullberge No1', '9235049b12189f7635d5f007fd4704e1', 1, '2022-07-25 02:57:04', '2022-07-27 01:58:12', NULL),
 (18, 'Jawad', 'male', 'jawad@gmail.com', 'Landikotal', 'jawad123', 0, '2022-07-27 00:17:27', '2022-07-27 00:17:27', NULL),
@@ -55,7 +55,6 @@ INSERT INTO `customer` (`id`, `name`, `gender`, `email`, `address`, `password`, 
 (21, 'Doyle Borer MD', 'male', 'simone62@hotmail.com', '4663 Mraz Cliff\nRitchieside, VT 80025', 'rHZ&OJ-]Tf{1`@gPpk', 0, '2022-07-27 00:54:10', '2022-07-27 00:54:10', NULL),
 (22, 'Dr. Kailee White', 'male', 'lance38@bernier.biz', '655 Kreiger Ports\nSouth Blancabury, OH 40707', '#qq<fz;?wiud+U', 0, '2022-07-27 00:54:10', '2022-07-27 00:54:10', NULL),
 (23, 'Prof. Princess Williamson PhD', 'male', 'wjacobs@zboncak.com', '6651 Corkery Forks\nAlfonzoburgh, NC 77577-4336', 'iA7`mjs', 0, '2022-07-27 00:54:10', '2022-07-27 01:15:44', '2022-07-27 01:15:44'),
-(24, 'Ms. Serenity Leffler I', 'male', 'salma64@watsica.info', '75362 Nikolaus Roads\nSouth Mohammed, MT 06777', 'jH/?NTl', 0, '2022-07-27 00:54:10', '2022-07-27 01:15:48', '2022-07-27 01:15:48'),
 (25, 'Rod Bosco', 'male', 'qmurphy@bashirian.com', '6851 Muller Overpass\nLake Mckaylamouth, WA 77300', 'SP,r?1Otl^,N|F0', 0, '2022-07-27 00:54:10', '2022-07-27 00:54:10', NULL),
 (26, 'Leonor Beatty', 'male', 'selina.purdy@funk.com', '86774 Ashley Harbors\nBechtelarbury, NM 88120', 'X.ZbI_', 0, '2022-07-27 00:54:10', '2022-07-27 00:54:10', NULL),
 (27, 'Miss Odie Kertzmann', 'male', 'shana.douglas@yahoo.com', '5749 Kilback Via\nSylvesterborough, AZ 51786-8035', '2$!LMs%?+aR', 0, '2022-07-27 00:54:10', '2022-07-27 00:54:10', NULL),
