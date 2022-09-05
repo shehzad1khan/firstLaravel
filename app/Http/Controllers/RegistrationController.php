@@ -10,7 +10,7 @@ class RegistrationController extends Controller
 {
     public function form()
     {
-        $url = url('/insert');
+        $url = url('admin/insert');
         $title = "Register Customer";
         $data = compact('url', 'title');
         return view('form')->with($data);
@@ -18,7 +18,7 @@ class RegistrationController extends Controller
 
     public function register(Request $request)
     {
-        $request->validate(
+        $request->validate( 
             [
                 'name' => 'required',
                 'gender' => 'required',
@@ -28,8 +28,6 @@ class RegistrationController extends Controller
                 'status' => 'required'
             ]
         );
-        echo '<pre>';
-        print_r($request->all());
       //  Insert Query in Laravel
         $customer = new Customer();
         $customer->name = $request['name'];
@@ -40,18 +38,18 @@ class RegistrationController extends Controller
         $customer->status = $request['status'];
         $customer->save();
 
-        return redirect('/list');
+        return redirect('admin/list');
     }
     public function list(Request $request)
     {
         $search = $request['search'] ?? "";
         if($search != ""){
-            $customer = Customer::where('name', 'LIKE', "%$search%")->orwhere('email', 'LIKE', "%$search%")->orwhere('gender', 'LIKE', "%$search%")->get();
+            $customer = Customer::where('name', 'LIKE', "%$search%")->orwhere('email', 'LIKE', "%$search%")->orwhere('gender', 'LIKE', "%$search%")->orwhere('address', 'LIKE', "%$search%")->paginate(15);
         }else{
             $customer = Customer::paginate(15);
         }
         $data = compact('customer', 'search');
-        return view('list')->with($data);
+        return view('admin/list')->with($data);
     }
     public function delete($id)
     {
@@ -59,7 +57,7 @@ class RegistrationController extends Controller
         if(!is_null($data)){
             $data->delete();
         }
-        return redirect("list");
+        return redirect("admin/list");
     }
     public function force_delete($id)
     {
@@ -67,7 +65,7 @@ class RegistrationController extends Controller
         if(!is_null($data)){
             $data->forceDelete();
         }
-        return redirect("trash");
+        return redirect("admin/trash");
     }
     public function restore($id)
     {
@@ -75,7 +73,7 @@ class RegistrationController extends Controller
         if(!is_null($data)){
             $data->restore();
         }
-        return redirect("trash");
+        return redirect("admin/trash");
     }
 
     public function edit($id)
@@ -87,7 +85,7 @@ class RegistrationController extends Controller
             return redirect("list");
         }else{
             // if data Found
-            $url = url("/update") ."/". $id;
+            $url = url("admin/update") ."/". $id;
             $title = "Update Customer";
             $user_data = compact('data', 'url', 'title');
             return view('form')->with($user_data);
@@ -102,12 +100,26 @@ class RegistrationController extends Controller
         $user_data->address = $request['address'];
         $user_data->status = $request['status'];
         $user_data->save();
-        return redirect("list");
+        return redirect("admin/list");
     }
     public function trash()
     {
         $row = Customer::onlyTrashed()->get();
         $data = compact('row');
         return view('trash')->with($data);
+    }
+
+    public function login(Request $request)
+    {
+        $data = Customer::get();
+        $email = $request['email'];
+        $password = $request['password'];
+
+        if($data == $email && $data->password == $password)
+        {
+            return redirect('admin/list');
+        }else{
+            return redirect('login-form');
+        }
     }
 }

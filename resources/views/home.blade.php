@@ -9,9 +9,11 @@
 <h1 class="text-center">
     @lang('lang.welcome')
 </h1>
-<div class="justify-content-center">
-    <a href="{{url('/admin/urdu')}}">Urdu</a>
+    <div class="justify-content-center">
     <a href="{{url('/admin')}}">English</a>
+    <a href="{{url('/admin/urdu')}}">Urdu</a>
     <a href="{{url('/admin/pashto')}}">Pashto</a>
+    <a href="{{url('/admin/arabic')}}">Arabic</a>
+    <a href="{{url('/admin/farsi')}}">Persian</a>
 </div>
 @endsection
