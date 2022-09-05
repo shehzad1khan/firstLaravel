@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Pagination\Paginator;
 
 class RegistrationController extends Controller
 {
@@ -41,8 +44,8 @@ class RegistrationController extends Controller
         $customer->status = $request['status'];
 
         $image = $request->file('image');
-        $new_name = rand() . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('images'), $new_name);
+        $new_name = rand().'.'.$image->getClientOriginalExtension();
+        $image->move(public_path('images'), $image);
         $customer->image = $new_name;
 
         // if($request->hadFile('image'))
@@ -56,24 +59,14 @@ class RegistrationController extends Controller
 
         return redirect('/admin/list');
     }
-    public function list(Request $request)
-    {
-        $search = $request['search'] ?? "";
-        if($search != ""){
-            $customer = Customer::where('name', 'LIKE', "%$search%")->orwhere('email', 'LIKE', "%$search%")->orwhere('gender', 'LIKE', "%$search%")->orwhere('address', 'LIKE', "%$search%")->paginate(15);
-        }else{
-            $customer = Customer::paginate(15);
-        }
-        $data = compact('customer', 'search');
-        return view('list')->with($data);
-    }
+
     public function delete($id)
     {
         $data = Customer::find($id);
         if(!is_null($data)){
             $data->delete();
         }
-        return redirect("list");
+        return redirect("admin/list");
     }
     public function force_delete($id)
     {
@@ -81,7 +74,7 @@ class RegistrationController extends Controller
         if(!is_null($data)){
             $data->forceDelete();
         }
-        return redirect("trash");
+        return redirect("admin/trash");
     }
     public function restore($id)
     {
@@ -89,21 +82,22 @@ class RegistrationController extends Controller
         if(!is_null($data)){
             $data->restore();
         }
-        return redirect("trash");
+        return redirect("admin/trash");
     }
 
     public function edit($id)
     {
-        $data = Customer::find($id);
+        $data = Customer::get($id);
         if(is_null($data))
         {
             // data not found
             return redirect("list");
         }else{
             // if data Found
-            $url = url("/update") ."/". $id;
+            $url = url("/admin/update") ."/". $id;
             $title = "Update Customer";
-            $user_data = compact('data', 'url', 'title');
+            $hide_class = 'display:none';
+            $user_data = compact('data', 'url', 'title','hide_class');
             return view('form')->with($user_data);
         }
     }
@@ -115,8 +109,14 @@ class RegistrationController extends Controller
         $user_data->email = $request['email'];
         $user_data->address = $request['address'];
         $user_data->status = $request['status'];
+
+        $image = $request->file('image');
+        $new_name = rand().'.'.$image->getClientOriginalExtension();
+        $image->move(public_path('images'), $image);
+        $user_data->image = $new_name;
+
         $user_data->save();
-        return redirect("list");
+        return redirect("admin/list");
     }
     public function trash()
     {
@@ -124,4 +124,42 @@ class RegistrationController extends Controller
         $data = compact('row');
         return view('trash')->with($data);
     }
-}
+
+    public function signin(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials))
+        {
+            return redirect('admin/list');
+        }
+        return redirect("login")->with('success', 'Login details are not valid');
+    }
+    public function list(Request $request)
+    {
+        if(Auth::check()){
+        $search = $request['search'] ?? "";
+        if($search != ""){
+            $customer = Customer::where('name', 'LIKE', "%$search%")->orwhere('email', 'LIKE', "%$search%")->orwhere('gender', 'LIKE', "%$search%")->orwhere('address', 'LIKE', "%$search%")->paginate(15);
+        }else{
+            $customer = Customer::paginate(15);
+        }
+        $data = compact('customer', 'search');
+        return view('/list')->with($data);
+        }
+        return redirect('login')->with("success", "You are not login");
+    }
+
+        public function logout()
+        {
+            Session::flush();
+
+            Auth::logout();
+            return redirect('login');
+        }
+
+    }

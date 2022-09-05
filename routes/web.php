@@ -6,6 +6,7 @@ use App\Http\Controllers\SingleActionController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\RegistrationController;
 use App\Models\Customer;
+use Illuminate\Routing\Route as RoutingRoute;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use Illuminate\Support\Facades\App;
 
@@ -41,20 +42,23 @@ Route::group(['prefix' => '/admin'], function(){
     Route::get('restore/{id}', [RegistrationController::class, 'restore'])->name("cus.restore");
     Route::get('edit/{id}', [RegistrationController::class, 'edit'])->name("cus-edit");
     Route::post('update/{id}', [RegistrationController::class, 'update']);
-    Route::get('list', [RegistrationController::class, 'list'])->middleware('role:User');
-    Route::get('trash', [RegistrationController::class, 'trash']);
-    Route::get('/', function() {
-        return view("home");
+    Route::get('list', [RegistrationController::class, 'list'])->middleware('role:Admin');
+    Route::get('/trash', [RegistrationController::class, 'trash']);
+    // Route::get('/', function() {
+    //     return view("home");
+    // });
+    Route::get('about', function () {
+        return view("about");
     });
     Route::get('/{lang?}', function($lang = null) {
         App::setLocale($lang);
         return view("home");
     });
-    Route::get('admin.about', function () {
-        return view('about');
+ }); //Group Route Ends Here
+
+    Route::get('contact', function(){
+        return view('contact');
     });
 
-});
-Route::get('contact', function(){
-    return view('contact');
-});
+    Route::view('login', 'login-form');
+    Route::post('signin',[RegistrationController::class, 'signin']);

@@ -17,7 +17,7 @@
         @csrf
         <div class="mb-3">
           <label for="name" class="form-label">Name</label>
-          <input type="text" class="form-control" name="name" id="name" value="" placeholder="Write Your Name">
+          <input type="text" class="form-control" name="name" id="name" value="{{'$user_data->name'}}" placeholder="Write Your Name">
           <span class="text-danger">
             @error('name')
               {{$message}}
@@ -28,13 +28,18 @@
             <label for="gender" class="form-label">Gender</label>
             <select name="gender" id="" class="form-control">
                 <option selected disabled>Choose Gender</option>
-                <option value="male">Male</option>
+                @if($data->gender  == 'male')
+                <option selected value="male">Male</option>
                 <option value="female">Female</option>
+                @else
+                <option value="male">Male</option>
+                <option selected value="female">Female</option>
+                @endif
             </select>
           </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="text" class="form-control" name="email" id="email" value="" placeholder="Write Your Email">
+            <input type="text" class="form-control" name="email" id="email" value="{{$user_data->email}}" placeholder="Write Your Email">
             <span class="text-danger">
                 @error('email')
                     {{$message}}
@@ -44,9 +49,9 @@
         </div>
         <div class="mb-3">
             <label for="address" class="form-label">Address</label>
-            <input type="text" class="form-control" name="address" value="">
+            <input type="text" class="form-control" name="address" value="{{$data->address}}">
         </div>
-        <div class="mb-3">
+        <div class="mb-3" style="{{$hide_class;}}">
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder="Write Your Password">
             <span class="text-danger">
@@ -60,8 +65,14 @@
             <label for="status" class="form-label">Status</label>
             <select name="status" id="" class="form-control">
                 <option selected disabled>Choose Status</option>
-                <option value="1">Admin</option>
+                @if($data->status == '1')
+                <option selected value="1">Admin</option>
                 <option value="0">User</option>
+                @else
+                <option value="1">Admin</option>
+                <option selected value="0">User</option>
+                @endif
+
             </select>
           </div>
           <div class="mb-3">

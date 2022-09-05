@@ -23,13 +23,13 @@
         <thead class="bg-info">
           <tr>
             <th>Id</th>
+            <th>Image</th>
             <th>Name</th>
             <th>Gender</th>
             <th>Email</th>
             <th>Address</th>
             <th>Status</th>
             <th>Created_at</th>
-            <th>Updated_at</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -37,6 +37,7 @@
             @foreach ($customer as $key)
             <tr>
                 <td>{{$key->id}}</td>
+                <td><img src={{url("/images/".$key->image."")}} width="70" height="70" alt="img"/></td>
                 <td>{{$key->name}}</td>
                 <td>{{$key->gender}}</td>
                 <td>{{$key->email}}</td>
@@ -49,7 +50,6 @@
                     @endif
                 </td>
                 <td>{{$key->created_at}}</td>
-                <td>{{$key->updated_at->format('d-M-Y')}}</td>
                 <td>
                     <a href="{{route('cus.delete', ['id' => $key->id])}}">
                     <button class="btn btn-danger btn-sm">Trash</button>
