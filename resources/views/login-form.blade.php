@@ -140,10 +140,12 @@
                 <form class="p-3 mt-3" method="post" action="{{ url('signin') }}">
                     <div class="form-field d-flex align-items-center">
                         <span class="far fa-user"></span>
-                        <input type="email" name="email" id="email" placeholder="Email" required>
-                        @if ($errors->has('email'))
-                            <span class="text-danger">{{$errors->first('email')}}</span>
-                        @endif
+                        <input type="email" name="email" id="email" placeholder="Email">
+                        <span class="text-danger">
+                            @error('email')
+                                {{$message}}
+                            @enderror
+                          </span>
                     </div>
                     <div class="form-field d-flex align-items-center">
                         <span class="fas fa-key"></span>
