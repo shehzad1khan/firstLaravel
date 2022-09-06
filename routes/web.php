@@ -29,6 +29,10 @@ use Illuminate\Support\Facades\App;
 //     return view('about');
 // });
 
+// Route::get('contact',function(){
+//     return view('contact');
+// // });
+
 // Route::get('/',[DemoController::class, 'sweethome']);
 // Route::get('/contact',SingleActionController::class);
 // Route::resource('photo', PhotoController::class);
@@ -55,6 +59,12 @@ Route::group(['prefix' => '/admin'], function(){
         return view("home");
     });
  }); //Group Route Ends Here
+
+
+
+
+Route::view('login-form', 'login-form');
+Route::post('login', [RegistrationController::class, 'login']);
 
     Route::get('contact', function(){
         return view('contact');

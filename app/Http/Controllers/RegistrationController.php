@@ -32,8 +32,8 @@ class RegistrationController extends Controller
                 'status' => 'required'
             ]
         );
-
-
+        echo '<pre>';
+        print_r($request->all());
       //  Insert Query in Laravel
         $customer = new Customer();
         $customer->name = $request['name'];
@@ -57,9 +57,8 @@ class RegistrationController extends Controller
         // }
         $customer->save();
 
-        return redirect('/admin/list');
+        return redirect('admin/list');
     }
-
     public function delete($id)
     {
         $data = Customer::find($id);
@@ -94,7 +93,7 @@ class RegistrationController extends Controller
             return redirect("list");
         }else{
             // if data Found
-            $url = url("/admin/update") ."/". $id;
+            $url = url("/update") ."/". $id;
             $title = "Update Customer";
             $hide_class = 'display:none';
             $user_data = compact('data', 'url', 'title','hide_class');
@@ -124,7 +123,6 @@ class RegistrationController extends Controller
         $data = compact('row');
         return view('trash')->with($data);
     }
-
     public function signin(Request $request)
     {
         $request->validate([
@@ -162,4 +160,4 @@ class RegistrationController extends Controller
             return redirect('login');
         }
 
-    }
+}
