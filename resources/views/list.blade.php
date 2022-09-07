@@ -10,6 +10,13 @@
   </head>
   <body>
     @include("navbar")
+
+    @if(session('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="offset-1 col-md-10">
         <form action="" method="get">
             <div class="offset-4 mt-1 mb-3 col-3">

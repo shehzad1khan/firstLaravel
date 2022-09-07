@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -126,6 +125,12 @@
 
 <body>
 
+    @if(session('error'))
+        <div class="alert alert-success" role="alert">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="row">
         <div class="col-md-1"></div>
 
@@ -139,22 +144,25 @@
                     Twitter
                 </div>
                 <form class="p-3 mt-3" method="post" action="{{ url('signin') }}">
+                    @csrf
                     <div class="form-field d-flex align-items-center">
                         <span class="far fa-user"></span>
-                        <input type="email" name="email" id="email" placeholder="Email">
-                        <span class="text-danger">
-                            @error('email')
-                                {{$message}}
-                            @enderror
-                          </span>
+                        <input type="email" name="email" id="email" placeholder="Email" value="{{old('email')}}">
                     </div>
+                    <span class="text-danger">
+                        @error('email')
+                            {{ $message }}
+                        @enderror
+                    </span>
                     <div class="form-field d-flex align-items-center">
                         <span class="fas fa-key"></span>
                         <input type="password" name="password" id="pwd" placeholder="Password">
-                        @if ($errors->has('password'))
-                            <span class="text-danger">{{$errors->first('password')}}</span>
-                        @endif
                     </div>
+                    <span class="text-danger">
+                        @error('password')
+                            {{$message}}
+                        @enderror
+                    </span>
                     <input type="submit" name="submit" value="Login" class="btn mt-3">
                 </form>
                 <div class="text-center fs-6">
@@ -169,5 +177,4 @@
 
 </body>
 
->>>>>>> 12699496819af9ed2871cc348dd38b2564579f6a
 </html>
